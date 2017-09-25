@@ -9,6 +9,9 @@ app.use(express.static(__dirname + '/client/static'));
 //app.use(express.static(__dirname + '/public/dist'));
 app.use(bp.json());
 
+app.set("views", __dirname + "/client/views");
+app.set('view engine', 'ejs');
+
 app.enable('trust proxy', true);
 
 require('./server/config/mongoose');
