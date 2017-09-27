@@ -3,9 +3,7 @@ let Users = require('../controllers/users');
 
 module.exports = function(app){
 
-  app.get('/', Users.new);
-  app.get('/users', Users.success);
-
+  app.get('/', Users.index);
   app.post('/users', Users.create);
 
   // app.get('/users/:id', Users.show);
