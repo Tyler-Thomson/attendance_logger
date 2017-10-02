@@ -1,5 +1,9 @@
+let mongoose = require('mongoose');
+let User = mongoose.model('User');
+
 module.exports = {
   index: function(req, res){
+    console.log(req.connection.localAddress);
     User.find({}, (err, users) =>{
       if(err){return res.json(err)}
       return res.json(users);
@@ -11,7 +15,6 @@ module.exports = {
       else if(!user){
         User.create(req.body, (err, user) => {
           if(err){return res.json(err)}
-          console.log(request);
           return res.json(user);
         })
       }else{
@@ -21,7 +24,7 @@ module.exports = {
   },
   show: function(req, res){
     User.findById(req.params.id, function(err, user){
-      if(!user){return res.json{(error:'Invalid user ID')}
+      if(!user){return res.json({error:'Invalid user ID'})}
       if(err){return res.json(err)}
       return res.json(user);
     })
