@@ -3,7 +3,6 @@ let User = mongoose.model('User');
 
 module.exports = {
   index: function(req, res){
-    console.log(req.connection.localAddress);
     User.find({}, (err, users) =>{
       if(err){return res.json(err)}
       return res.json(users);
@@ -18,6 +17,7 @@ module.exports = {
           return res.json(user);
         })
       }else{
+        var client_ip = req.connection.localAddress
         return res.json(user);
       }
     })
