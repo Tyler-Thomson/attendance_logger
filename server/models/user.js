@@ -1,4 +1,5 @@
 let mongoose = require('mongoose');
+//Not sure if I need to use bcrypt yet...
 let bcrypt = require('bcryptjs');
 
 var validateEmail = function(email) {

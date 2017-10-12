@@ -9,6 +9,7 @@ module.exports = function(app){
   app.put('/users/:id', Users.update);
   app.delete('/users/:id', Users.destroy);
 
+  // Commented out, will use for Angular
   // app.all('*', (req, res, next) => {
   //     res.sendFile(path.resolve('./public/dist/index.html'));
   //   });

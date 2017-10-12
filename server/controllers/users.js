@@ -14,14 +14,17 @@ module.exports = {
     User.findOne({email: req.body.email}, (err, user) => {
       if(err){return res.json(err)}
       else if(!user){
+        // Need to get mac and save when creating user too
         User.create(req.body, (err, user) => {
           if(err){return res.json(err)}
           return res.json(user);
         })
+        // If user is found, retrieve and save mac address (if not already saved)
       }else{
-        session.client_ip = req.connection.localAddress
-        var client_ip = session.client_ip
+        // Save ip address to variable
+        var client_ip = req.connection.localAddress
 
+        // Need to figure out escapes for grep expression
         var child = spawn('arp -a | grep client_ip | grep -o -E '([[:xdigit:]]{1,2}:){5}[[:xdigit:]]{1,2}'', {
           shell: true
         });
