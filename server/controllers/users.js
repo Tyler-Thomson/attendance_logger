@@ -1,6 +1,7 @@
 let mongoose = require('mongoose');
 let User = mongoose.model('User');
-const {spawn } = require('child_process');
+let session = require('express-session');
+var spawn = require('child_process').execSync;
 
 module.exports = {
   index: function(req, res){
@@ -18,7 +19,19 @@ module.exports = {
           return res.json(user);
         })
       }else{
-        var client_ip = req.connection.localAddress
+        session.client_ip = req.connection.localAddress
+        var client_ip = session.client_ip
+
+        var child = spawn('arp -a | grep client_ip | grep -o -E '([[:xdigit:]]{1,2}:){5}[[:xdigit:]]{1,2}'', {
+          shell: true
+        });
+        child.stdout.on('data', (data) => {
+          console.log("stdout:", data.toString());
+          var mac_address = data.toString();
+        });
+        child.stderr.on('data', (data) => {
+        console.error("stderr:", data.toString());
+        });
         return res.json(user);
       }
     })

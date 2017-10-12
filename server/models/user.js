@@ -10,12 +10,11 @@ let UserSchema = new mongoose.Schema({
   email:{
     type: String,
     trim: true,
-    lowercase: true,
     unique: true,
     // required: [true, "Email address is required"],
     // validate: [validateEmail, 'Please fill a valid email address']
   },
-  mac_address:{ type: String },
+  mac_address:[{ type: String }],
   attendance:[{type: Date}]
 }, { timestamps: true });
 

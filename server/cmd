@@ -1,1 +1,11 @@
 tshark -r "sample.pcapng" -Tfields -e ip.src -e eth.src | sort | uniq
+
+
+var args = ['-r', 'sample.pcapng', '-Tfields', '-e', 'ip.src', '-e', 'eth.src', '|', 'sort', '|', 'uniq'];
+var tshark = spawn('tshark', args);
+
+
+
+
+----- Run arp table | get specific IP address line | get MAC address -----
+arp -a | grep client_ip | grep -o -E '([[:xdigit:]]{1,2}:){5}[[:xdigit:]]{1,2}'

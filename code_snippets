@@ -1,0 +1,10 @@
+const ping = spawnSync('ping', ['-c', '5', session.client_ip]);
+
+ping.stdout.on('data', (data) => {
+  var client_ip = data.toString();
+  console.log(`stdout: ${data}`);
+});
+ping.stderr.on('err', (err) => {
+  // return res.json(err);
+  console.log(`stderr: ${error}`);
+});
