@@ -1,6 +1,6 @@
 This is an attendance logger I am building.
 
-As per specifications, the app needs to render a form for students to enter their email address into. 
+As per specifications, the app needs to render a form for students to enter their email address into, and needs to be built in MEAN.
 
 --- Part One ---
 ----------------
