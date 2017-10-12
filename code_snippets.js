@@ -1,3 +1,10 @@
+////////////////////// Code snippets I'm keeping to possibly reuse later
+
+
+
+
+
+
 //Spawn child process for ping command//////////////////////////
 const ping = spawnSync('ping', ['-c', '5', session.client_ip]);
 ping.stdout.on('data', (data) => {

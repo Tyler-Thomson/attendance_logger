@@ -1,3 +1,5 @@
+----------- Commands for tshark in the terminal, if I decide to use it ----------
+
 tshark -r "sample.pcapng" -Tfields -e ip.src -e eth.src | sort | uniq
 
 
@@ -5,7 +7,7 @@ var args = ['-r', 'sample.pcapng', '-Tfields', '-e', 'ip.src', '-e', 'eth.src', 
 var tshark = spawn('tshark', args);
 
 
-
+----------- Terminal command to extract MAC from arp table
 
 ----- Run arp table | get specific IP address line | get MAC address -----
 arp -a | grep client_ip | grep -o -E '([[:xdigit:]]{1,2}:){5}[[:xdigit:]]{1,2}'
