@@ -17,7 +17,10 @@ module.exports = {
     var child = child_process.spawnSync(`arp -a | grep 192.168.1.21 | grep -o -E "([[:xdigit:]]\{1,2\}:)\{5\}[[:xdigit:]]\{1,2\}"`, {
       shell: true
     });
-    console.dir(child.stdout);
+    // console.dir(child.stdout.toString());
+    console.log(child.stdout.toString());
+    mac = child.stdout.toString();
+    console.log(`This is not a test ${mac}`);
     // child.stderr.on('data', (data) => {
     //   console.error("stderr:", data.toString());
     // });
