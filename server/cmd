@@ -1,7 +1,0 @@
------------ Commands for tshark in the terminal, if I decide to use it ----------
-
-tshark -r "sample.pcapng" -Tfields -e ip.src -e eth.src | sort | uniq
-
-
-var args = ['-r', 'sample.pcapng', '-Tfields', '-e', 'ip.src', '-e', 'eth.src', '|', 'sort', '|', 'uniq'];
-var tshark = spawn('tshark', args);
