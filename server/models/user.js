@@ -16,7 +16,10 @@ let UserSchema = new mongoose.Schema({
     // validate: [validateEmail, 'Please fill a valid email address']
   },
   mac_address:[{type: String}],
-  attendance:[{type: Date}]
+  attendance:{'9':{type: Boolean, default: false},
+              '12':{type: Boolean, default: false},
+              '15':{type: Boolean, default: false}
+  },
 }, { timestamps: true });
 
 mongoose.model('User', UserSchema);

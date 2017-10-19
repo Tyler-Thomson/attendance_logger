@@ -3,6 +3,7 @@ let User = mongoose.model('User');
 let session = require('express-session');
 let ip_collect = require('./mac_collect');
 
+
 module.exports = {
   index: function(req, res){
     User.find({}, (err, users) =>{
@@ -11,7 +12,7 @@ module.exports = {
     })
   },
   create: function(req, res){
-    let mac_address = ip_collect.collect_mac(req.connection.localAddress);
+    let mac_address = ip_collect.collect_one_mac(req.connection.localAddress);
     User.findOne({email: req.body.email}, (err, user) => {
       if(err){return res.json(err)}
       else if(!user){
@@ -48,5 +49,21 @@ module.exports = {
 			if(err){return res.json(err)}
 			return res.json(user);
 		})
-	}
+	},
+  scan: function(req, res){
+    User.find({}, (err, users) =>{
+      if(err){return res.json(err)}
+      let all_macs = ip_collect.collect_all_macs().split("\n");
+      let current_hour = (new Date()).getHours().toString();
+      for(let user of users){
+        for(let mac of user.mac_address){
+          if(mac in all_macs){
+            user.attendance[current_hour] = true;
+            user.save();
+          }
+        }
+      }
+      return res.json(users);
+    })
+  }
 }
