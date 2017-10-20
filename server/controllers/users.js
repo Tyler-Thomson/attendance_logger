@@ -1,6 +1,5 @@
 let mongoose = require('mongoose');
 let User = mongoose.model('User');
-let session = require('express-session');
 let ip_collect = require('./mac_collect');
 
 
@@ -65,5 +64,8 @@ module.exports = {
       }
       return res.json(users);
     })
+  },
+  bling: function(req, res){
+    console.log("Yo ma nigga");
   }
 }

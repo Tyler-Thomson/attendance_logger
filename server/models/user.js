@@ -18,8 +18,7 @@ let UserSchema = new mongoose.Schema({
   mac_address:[{type: String}],
   attendance:{'9':{type: Boolean, default: false},
               '12':{type: Boolean, default: false},
-              '15':{type: Boolean, default: false}
-  },
+              '15':{type: Boolean, default: false}},
 }, { timestamps: true });
 
 mongoose.model('User', UserSchema);
