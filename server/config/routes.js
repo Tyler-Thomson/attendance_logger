@@ -11,8 +11,7 @@ module.exports = function(app){
 
   app.get('/scan', Users.scan);
 
-  // Commented out, will use for Angular
-  // app.all('*', (req, res, next) => {
-  //     res.sendFile(path.resolve('./public/dist/index.html'));
-  //   });
+  app.all('*', (req, res, next) => {
+      res.sendFile(path.resolve('./public/dist/index.html'));
+    });
 };

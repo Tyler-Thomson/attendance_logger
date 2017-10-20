@@ -7,7 +7,7 @@ let app = express();
 let schedule = require('node-schedule');
 
 app.use(morgan('tiny'));
-//app.use(express.static(__dirname + '/public/dist'));
+app.use(express.static(__dirname + '/public/dist'));
 app.use(bp.json());
 
 app.enable('trust proxy', true);

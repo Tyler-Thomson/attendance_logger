@@ -15,7 +15,7 @@ import { LoginService } from './login.service';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,6 +24,6 @@ import { LoginService } from './login.service';
     FormsModule
   ],
   providers: [LoginService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, LoginComponent]
 })
 export class AppModule { }

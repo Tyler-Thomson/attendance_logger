@@ -1,3 +1,11 @@
-<p>
-  login works!
-</p>
+<div>
+  <!-- <p *ngIf="registerForm.reset()" [(ngStyle)]="{'color':'green'}">Email submitted successfully!</p> -->
+  <form (submit)="create(); registerForm.reset()" #registerForm="ngForm">
+    <label>Your email:</label>
+    <input type="email" name="email" [(ngModel)]="newUser.email">
+    <p *ngFor="let error of errors" [ngStyle]="{'color': 'red'}">{{ error }}</p>
+    <div>
+      <input type="submit" value="Check In" [disabled]="!newUser.email">
+    </div>
+  </form>
+</div>
