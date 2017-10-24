@@ -167,7 +167,6 @@ AppModule = __decorate([
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs__ = __webpack_require__("../../../../rxjs/_esm5/Rx.js");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -180,13 +179,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-
 var LoginService = (function () {
     function LoginService(_http) {
         this._http = _http;
     }
-    LoginService.prototype.create = function (user) {
-        return this._http.post('/users', user).map(function (data) { return data.json(); }).toPromise();
+    LoginService.prototype.login = function (newUser, callback) {
+        this._http.post('/users', newUser).subscribe(function (res) { return callback(res.json()); }, function (err) { return console.log(err); });
     };
     return LoginService;
 }());
@@ -221,7 +219,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  <!-- <p *ngIf=\"registerForm.reset()\" [(ngStyle)]=\"{'color':'green'}\">Email submitted successfully!</p> -->\n  <form (submit)=\"create(); registerForm.reset()\" #registerForm=\"ngForm\">\n    <label>Your email:</label>\n    <input type=\"email\" name=\"email\" [(ngModel)]=\"newUser.email\">\n    <p *ngFor=\"let error of errors\" [ngStyle]=\"{'color': 'red'}\">{{ error }}</p>\n    <div>\n      <input type=\"submit\" value=\"Check In\" [disabled]=\"!newUser.email\">\n    </div>\n  </form>\n</div>\n"
+module.exports = "<div>\n  <p *ngIf=\"successMessage\" [ngStyle]=\"{'color': 'green'}\">Checked in successfully!</p>\n  <form (submit)=\"login(); registerForm.reset()\" #registerForm=\"ngForm\">\n    <label>Your email:</label>\n    <input type=\"email\" name=\"email\" [(ngModel)]=\"newUser.email\">\n    <p *ngFor=\"let error of errors\" [ngStyle]=\"{'color': 'red'}\">{{ error }}</p>\n    <div>\n      <input type=\"submit\" value=\"Check In\" [disabled]=\"!newUser.email\">\n    </div>\n  </form>\n</div>\n"
 
 /***/ }),
 
@@ -232,6 +230,7 @@ module.exports = "<div>\n  <!-- <p *ngIf=\"registerForm.reset()\" [(ngStyle)]=\"
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_service__ = __webpack_require__("../../../../../src/app/login.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__user__ = __webpack_require__("../../../../../src/app/user.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -245,31 +244,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var LoginComponent = (function () {
-    function LoginComponent(_loginService, router) {
+    function LoginComponent(_loginService, _router) {
         this._loginService = _loginService;
-        this.router = router;
-        this.newUser = {};
+        this._router = _router;
+        this.newUser = new __WEBPACK_IMPORTED_MODULE_3__user__["a" /* User */]();
         this.errors = [];
+        this.successMessage = false;
     }
     LoginComponent.prototype.ngOnInit = function () { };
-    LoginComponent.prototype.create = function () {
+    LoginComponent.prototype.login = function () {
         var _this = this;
+        this.successMessage = false;
         this.errors = [];
-        return this._loginService.create(this.newUser)
-            .then(function (user) {
-            console.log(user);
-            if (user.errors) {
-                for (var key in user.errors) {
-                    var error = user.error[key];
+        this._loginService.login(this.newUser, function (res) {
+            if (res.errors) {
+                for (var _i = 0, _a = Object.keys(res.errors); _i < _a.length; _i++) {
+                    var key = _a[_i];
+                    var error = res.errors[key];
                     _this.errors.push(error.message);
                 }
             }
             else {
-                _this.router.navigateByUrl('login');
+                _this.successMessage = true;
+                _this._router.navigateByUrl('/login');
             }
-        })
-            .catch(function (err) { return console.log(err); });
+        });
     };
     return LoginComponent;
 }());
@@ -284,6 +285,21 @@ LoginComponent = __decorate([
 
 var _a, _b;
 //# sourceMappingURL=login.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/user.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return User; });
+var User = (function () {
+    function User() {
+    }
+    return User;
+}());
+
+//# sourceMappingURL=user.js.map
 
 /***/ }),
 

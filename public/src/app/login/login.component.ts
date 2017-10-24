@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../login.service';
 import { Router } from '@angular/router';
+import { User } from '../user';
 
 @Component({
   selector: 'app-login',
@@ -9,31 +10,30 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  newUser: any = {};
-  errors: any = [];
+  newUser: User = new User();
+  errors: string[] = [];
+  successMessage = false;
 
   constructor(
     private _loginService: LoginService,
-    private router: Router
+    private _router: Router
   ) { }
 
   ngOnInit() {}
 
-  create() {
+  login() {
+    this.successMessage = false;
     this.errors = [];
-    return this._loginService.create(this.newUser)
-      .then(user => {
-        console.log(user);
-        if (user.errors) {
-          for(let key in user.errors) {
-            let error = user.error[key];
-            this.errors.push(error.message);
-          }
-        } else {
-          this.router.navigateByUrl('login');
-        }
-      })
-      .catch(err => console.log(err));
+    this._loginService.login(this.newUser, (res) => {
+      if (res.errors) {
+        for (const key of Object.keys(res.errors)) {
+          const error = res.errors[key];
+          this.errors.push(error.message);
+      }
+    } else {
+      this.successMessage = true;
+      this._router.navigateByUrl('/login');
+    }
+    });
   }
-
 }

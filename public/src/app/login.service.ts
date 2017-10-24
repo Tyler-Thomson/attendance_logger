@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import 'rxjs';
+import { User } from './user';
 
 @Injectable()
 export class LoginService {
 
   constructor(private _http: Http) { }
 
-  create(user) {
-    return this._http.post('/users', user).map(data => data.json()).toPromise();
+  login(newUser: User, callback) {
+    this._http.post('/users', newUser).subscribe(
+      res => callback(res.json()),
+      err => console.log(err)
+    );
   }
 }
