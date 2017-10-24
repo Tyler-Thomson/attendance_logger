@@ -1,5 +1,4 @@
 let mongoose = require('mongoose');
-let bcrypt = require('bcryptjs'); //Keeping bcrypt just in case
 
 var validateEmail = function(email) {
     var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../login.service';
+import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
-import { User } from '../user';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css', './bootstrap.min.css']
 })
 export class LoginComponent implements OnInit {
 
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
       }
     } else {
       this.successMessage = true;
-      this._router.navigateByUrl('/login');
+      this._router.navigateByUrl('/');
     }
     });
   }

@@ -1,11 +1,42 @@
-<div>
-  <p *ngIf="successMessage" [ngStyle]="{'color': 'green'}">Checked in successfully!</p>
-  <form (submit)="login(); registerForm.reset()" #registerForm="ngForm">
-    <label>Your email:</label>
-    <input type="email" name="email" [(ngModel)]="newUser.email">
-    <p *ngFor="let error of errors" [ngStyle]="{'color': 'red'}">{{ error }}</p>
-    <div>
-      <input type="submit" value="Check In" [disabled]="!newUser.email">
-    </div>
-  </form>
-</div>
+<!-- <div class="row">
+  <div class="col">
+    <form (submit)="login(); registerForm.reset()" #registerForm="ngForm">
+      <label>Your email:</label>
+      <input type="email" name="email" [(ngModel)]="newUser.email" class="form-control">
+      <p *ngIf="successMessage" [ngStyle]="{'color': 'green'}">Checked in successfully!</p>
+      <p *ngFor="let error of errors" [ngStyle]="{'color': 'red'}">{{ error }}</p>
+      <input id="submit" class="btn btn-default" type="submit" value="Check In" [disabled]="!newUser.email">
+    </form>
+  </div>
+</div> -->
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Check in page</title>
+  <link href="./bootstrap.min.css" rel="stylesheet">
+  <link href="./login.component.css" rel="stylesheet">
+</head>
+<body>
+  <!-- container -->
+  <div class="container">
+    <form class="form-signin" (submit)="login(); registerForm.reset()" #registerForm="ngForm">
+      <h2 class="form-signin-heading">Please check in</h2>
+      <label for="inputEmail" class="sr-only"></label>
+      <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" [(ngModel)]="newUser.email" required autofocus>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+      </div>
+      <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!newUser.email">Check in </button>
+      <p class="form-signin-success" *ngIf="successMessage" [ngStyle]="{'color': 'green'}">Checked in successfully!</p>
+      <p class="form-signin-errors" *ngFor="let error of errors" [ngStyle]="{'color': 'red'}">{{ error }}</p>
+    </form>
+  </div>
+  <!-- /container -->
+</body>
+</html>
