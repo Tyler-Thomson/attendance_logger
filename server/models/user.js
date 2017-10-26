@@ -12,12 +12,9 @@ let UserSchema = new mongoose.Schema({
     lowercase: true,
     required: [true, "Email address is required"],
     validate: [validateEmail, 'Please fill a valid email address'],
-    match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
-  },
-  mac_address:[{type: String}],
-  attendance:{'9':{type: Boolean, default: false},
-              '12':{type: Boolean, default: false},
-              '15':{type: Boolean, default: false}},
+    match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']},
+  mac_address: [{type: String}],
+  attendances: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Attendance' }]
 }, { timestamps: true });
 
 mongoose.model('User', UserSchema);
