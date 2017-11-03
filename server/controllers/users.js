@@ -64,8 +64,5 @@ module.exports = {
       }
       return res.json(users);
     })
-  },
-  bling: function(req, res){
-    console.log("Yo ma nigga");
   }
 }
