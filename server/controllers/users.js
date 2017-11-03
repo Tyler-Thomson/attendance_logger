@@ -41,14 +41,14 @@ module.exports = {
 		User.findByIdAndUpdate(req.params.id, { $set: req.body }, function(err, user){
 			if(err){return res.json(err)}
       else{return res.json(user)}
-		})
-	},
-	destroy: function(req, res){
-		User.findByIdAndRemove(req.params.id, function(err, user){
-			if(err){return res.json(err)}
-			return res.json(user);
-		})
-	},
+     })
+  },
+  destroy: function(req, res){
+    User.findByIdAndRemove(req.params.id, function(err, user){
+      if(err){return res.json(err)}
+	     return res.json(user);
+    })
+  },
   scan: function(req, res){
     User.find({}, (err, users) =>{
       if(err){return res.json(err)}
