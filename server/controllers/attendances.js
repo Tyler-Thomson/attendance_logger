@@ -22,13 +22,13 @@ module.exports = {
                 for (let mac of user.mac_address) {
                     console.log("Working here")
                     if (mac in all_macs) {
-                        console.log("FUCK IT ALL 1")
+                        console.log("Check 1")
                         var attendance = new Attendance({
                             time : this.time,
                             date : this.date,
                             user : user._id
                         })
-                        console.log("FUCK IT ALL 2")
+                        console.log("Check 2")
                         attendance.save(function(err){
                             if(err){
                                 return res.json(err);
