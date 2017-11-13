@@ -13,7 +13,7 @@ module.exports = {
   create: function(req, res){
     let mac_address = ip_collect.collect_one_mac(req.connection.localAddress);
     console.log(mac_address);
-    console.log("FUCK EVERYTHING")
+    console.log("First sanity check")
     User.findOne({email: req.body.email}, (err, user) => {
       if(err){return res.json(err)}
       else if(!user){
